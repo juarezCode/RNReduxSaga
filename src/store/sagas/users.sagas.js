@@ -4,7 +4,7 @@ import {
   getUsers,
   getUsersError,
   getUsersSuccess,
-} from '../actions/user.actions';
+} from '../actions/users.actions';
 
 function* getUsersSaga() {
   try {
@@ -12,7 +12,7 @@ function* getUsersSaga() {
     const result = yield call(() => getUsersAPI());
     yield put(getUsersSuccess(result));
   } catch (error) {
-    yield put(getUsersError(error));
+    yield put(getUsersError('Ups, Ha ocurrido un error'));
   }
 }
 

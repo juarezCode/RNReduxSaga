@@ -6,29 +6,26 @@ import {
   StyleSheet,
   ActivityIndicator,
   FlatList,
+  TouchableOpacity,
 } from 'react-native';
 import { getUserDetail } from '../store/actions/user-detail.actions';
-import {
-  selectUser,
-  selectUserDetailLoading,
-} from '../store/selectors/user-detail.selectors';
-import {
-  selectPosts,
-  selectPostsLoading,
-} from '../store/selectors/user-posts.selectors';
-import { getPostByUser } from '../store/actions/user-posts.actions';
+import { userDetailState } from '../store/selectors/user-detail.selectors';
+import { userPostsState } from '../store/selectors/user-posts.selectors';
+import { userAlbumsState } from '../store/selectors/user-albums.selectors';
+import { getAlbumsByUser } from '../store/actions/user-albums.actions';
+import { PhotosScreenName } from '../navigations/AppNavigator';
 
-const UserDetailScreen = ({ route }) => {
-  const user = useSelector(selectUser);
-  const loading = useSelector(selectUserDetailLoading);
-  const posts = useSelector(selectPosts);
-  const loadingPosts = useSelector(selectPostsLoading);
+const UserDetailScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
+
+  const { user, loading } = useSelector(userDetailState);
+  const { posts, loading: loadingPosts } = useSelector(userPostsState);
+  const { albums, loading: loadingAlbums } = useSelector(userAlbumsState);
   const { id } = route.params;
 
   useEffect(() => {
     dispatch(getUserDetail(id));
-    dispatch(getPostByUser(id));
+    dispatch(getAlbumsByUser(id));
   }, [, dispatch]);
 
   return (
@@ -56,6 +53,25 @@ const UserDetailScreen = ({ route }) => {
             <View style={styles.card}>
               <Text style={styles.text}>{item.title}</Text>
             </View>
+          )}
+        />
+      )}
+      <Text style={{ ...styles.text, ...styles.title }}>Albums</Text>
+      {loadingAlbums ? (
+        <ActivityIndicator size="large" color={'black'} />
+      ) : null}
+      {albums.length == 0 ? null : (
+        <FlatList
+          data={albums}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate(PhotosScreenName, { id: item.id })
+              }
+              style={styles.card}>
+              <Text style={styles.text}>{item.title}</Text>
+            </TouchableOpacity>
           )}
         />
       )}

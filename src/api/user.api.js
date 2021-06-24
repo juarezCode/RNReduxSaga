@@ -21,6 +21,24 @@ export const getPostByUserAPI = async userId => {
   return data.data;
 };
 
+export const getAlbumsByUserAPI = async userId => {
+  const data = await axios.get(`${BASE_URL}/albums`, {
+    params: {
+      userId,
+    },
+  });
+  return data.data;
+};
+
+export const getPhotosByAlbumAPI = async albumId => {
+  const data = await axios.get(`${BASE_URL}/photos`, {
+    params: {
+      albumId,
+    },
+  });
+  return data.data;
+};
+
 export const addPostAPI = async post => {
   const data = await axios.post(`${BASE_URL}/posts`, post);
   return data.data;

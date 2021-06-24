@@ -8,21 +8,27 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import UserCard from '../components/UserCard';
-import { getUsers } from '../store/actions/user.actions';
+import { UserDetailScreenName } from '../navigations/AppNavigator';
+import { getUsers } from '../store/actions/users.actions';
 import {
-  selectUserLoading,
+  selectUsersError,
+  selectUsersLoading,
   selectUsers,
-} from '../store/selectors/user.selectors';
+} from '../store/selectors/users.selectors';
+import { AlertError } from '../utils/alerts';
 
-const UserScreen = ({ navigation }) => {
+const UsersScreen = ({ navigation }) => {
   const users = useSelector(selectUsers);
-  const loading = useSelector(selectUserLoading);
+  const loading = useSelector(selectUsersLoading);
+  const error = useSelector(selectUsersError);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUsers());
   }, [, dispatch]);
+
+  if (error) AlertError(error);
 
   return (
     <View style={{ flex: 1 }}>
@@ -36,7 +42,7 @@ const UserScreen = ({ navigation }) => {
             <UserCard
               user={item}
               goUserDetail={() =>
-                navigation.navigate('UserDetail', { id: item.id })
+                navigation.navigate(UserDetailScreenName, { id: item.id })
               }
             />
           )}
@@ -58,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserScreen;
+export default UsersScreen;

@@ -1,5 +1,14 @@
-import { delay, call, put, takeLatest } from '@redux-saga/core/effects';
-import { getPostByUserAPI, getUserAPI } from '../../api/user.api';
+import { delay, call, put, takeLatest, fork } from '@redux-saga/core/effects';
+import {
+  getAlbumsByUserAPI,
+  getPostByUserAPI,
+  getUserAPI,
+} from '../../api/user.api';
+import {
+  getAlbumsByUser,
+  getAlbumsByUserError,
+  getAlbumsByUserSuccess,
+} from '../actions/user-albums.actions';
 import {
   getUserDetail,
   getUserDetailError,
@@ -13,28 +22,34 @@ import {
 
 function* getUserSaga({ payload }) {
   try {
-    yield delay(1000);
     const result = yield call(() => getUserAPI(payload));
-    // const posts = yield call(() => getPostByUserAPI(payload));
-    // console.log('posts', posts);
     yield put(getUserDetailSuccess(result));
+    yield fork(getPostByUserSaga, result.id);
   } catch (error) {
-    yield put(getUserDetailError(error));
+    yield put(getUserDetailError(error.message));
   }
 }
 
-function* getPostByUserSaga({ payload }) {
+function* getPostByUserSaga(payload) {
+  yield put(getPostByUser());
   try {
-    yield delay(1000);
     const posts = yield call(() => getPostByUserAPI(payload));
-    console.log('posts', posts);
     yield put(getPostByUserSuccess(posts));
   } catch (error) {
-    yield put(getPostByUserError(error));
+    yield put(getPostByUserError(error.message));
+  }
+}
+
+function* getAlbumsByUserSaga({ payload }) {
+  try {
+    const albums = yield call(() => getAlbumsByUserAPI(payload));
+    yield put(getAlbumsByUserSuccess(albums));
+  } catch (error) {
+    yield put(getAlbumsByUserError(error.message));
   }
 }
 
 export function* watchGetUserDetail() {
   yield takeLatest(getUserDetail, getUserSaga);
-  yield takeLatest(getPostByUser, getPostByUserSaga);
+  yield takeLatest(getAlbumsByUser, getAlbumsByUserSaga);
 }

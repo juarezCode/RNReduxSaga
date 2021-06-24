@@ -3,9 +3,9 @@ import {
   getUsers,
   getUsersError,
   getUsersSuccess,
-} from '../actions/user.actions';
+} from '../actions/users.actions';
 
-export const userKey = 'user';
+export const userKey = 'users';
 
 const initialState = {
   loading: false,

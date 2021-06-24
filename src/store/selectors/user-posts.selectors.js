@@ -1,12 +1,9 @@
-import { createSelector } from 'reselect';
-import { userPostsKey } from '../reducers/user.posts.reducer';
+import { createSelector } from '@reduxjs/toolkit';
+import { userPostsKey } from '../reducers/user-posts.reducer';
 
-const userPostsState = state => state[userPostsKey];
+export const userPostsState = state => state[userPostsKey];
 
-export const selectPosts = createSelector(
-  userPostsState,
-  state => state.results,
-);
+export const selectPosts = createSelector(userPostsState, state => state.posts);
 
 export const selectPostsLoading = createSelector(
   userPostsState,

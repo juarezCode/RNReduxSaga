@@ -5,12 +5,12 @@ import {
   getPostByUserSuccess,
 } from '../actions/user-posts.actions';
 
-export const userPostsKey = 'userPosts';
+export const userPostsKey = 'posts';
 
 const initialState = {
   loading: false,
   loaded: false,
-  results: [],
+  posts: [],
   error: null,
 };
 
@@ -18,11 +18,11 @@ export const userPostsReducer = createReducer(initialState, builder => {
   return builder
     .addCase(getPostByUser, state => {
       state.loading = true;
-      state.results = [];
+      state.posts = [];
     })
     .addCase(getPostByUserSuccess, (state, { payload }) => {
       state.loading = false;
-      state.results = payload;
+      state.posts = payload;
     })
     .addCase(getPostByUserError, (state, { payload }) => {
       state.loading = false;

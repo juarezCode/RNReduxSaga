@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { UsersScreenName } from '../navigations/AppNavigator';
 
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('User')}>
+        onPress={() => navigation.navigate(UsersScreenName)}>
         <Text style={{ color: 'white' }}>ver usuarios</Text>
       </TouchableOpacity>
     </View>
