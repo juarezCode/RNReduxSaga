@@ -33,9 +33,9 @@ const PhotosScreen = ({ route: { params } }) => {
   return (
     <>
       <Text style={{ ...styles.text, ...styles.title }}>Photos</Text>
-      {loading ? <ActivityIndicator size="large" color={'black'} /> : null}
+      {loading && <ActivityIndicator size="large" color={'black'} />}
 
-      {photos.length == 0 ? null : (
+      {photos.length > 0 && (
         <FlatList
           data={photos}
           numColumns={2}

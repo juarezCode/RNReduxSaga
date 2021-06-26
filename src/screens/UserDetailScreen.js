@@ -10,10 +10,14 @@ import {
 } from 'react-native';
 import { getUserDetail } from '../store/actions/user-detail.actions';
 import { userDetailState } from '../store/selectors/user-detail.selectors';
-import { userPostsState } from '../store/selectors/user-posts.selectors';
+import { userPostsState } from '../store/selectors/posts/posts.selectors';
 import { userAlbumsState } from '../store/selectors/user-albums.selectors';
 import { getAlbumsByUser } from '../store/actions/user-albums.actions';
-import { PhotosScreenName } from '../navigations/AppNavigator';
+import { getPostByUser } from '../store/actions/posts/posts.actions';
+import {
+  CommentsScreenName,
+  PhotosScreenName,
+} from '../navigations/AppNavigator';
 
 const UserDetailScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
@@ -26,6 +30,7 @@ const UserDetailScreen = ({ route, navigation }) => {
   useEffect(() => {
     dispatch(getUserDetail(id));
     dispatch(getAlbumsByUser(id));
+    dispatch(getPostByUser(id));
   }, [, dispatch]);
 
   return (
@@ -33,8 +38,8 @@ const UserDetailScreen = ({ route, navigation }) => {
       <Text style={{ ...styles.text, ...styles.title }}>
         Detalle de usuario
       </Text>
-      {loading ? <ActivityIndicator size="large" color={'black'} /> : null}
-      {!user ? null : (
+      {loading && <ActivityIndicator size="large" color={'black'} />}
+      {user && (
         <View style={styles.card}>
           <Text style={styles.text}>{user.name}</Text>
           <Text style={styles.text}>{user.username}</Text>
@@ -44,23 +49,25 @@ const UserDetailScreen = ({ route, navigation }) => {
         </View>
       )}
       <Text style={{ ...styles.text, ...styles.title }}>Posts</Text>
-      {loadingPosts ? <ActivityIndicator size="large" color={'black'} /> : null}
-      {posts.length == 0 ? null : (
+      {loadingPosts && <ActivityIndicator size="large" color={'black'} />}
+      {posts.length > 0 && (
         <FlatList
           data={posts}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <View style={styles.card}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate(CommentsScreenName, { postId: item.id })
+              }
+              style={styles.card}>
               <Text style={styles.text}>{item.title}</Text>
-            </View>
+            </TouchableOpacity>
           )}
         />
       )}
       <Text style={{ ...styles.text, ...styles.title }}>Albums</Text>
-      {loadingAlbums ? (
-        <ActivityIndicator size="large" color={'black'} />
-      ) : null}
-      {albums.length == 0 ? null : (
+      {loadingAlbums && <ActivityIndicator size="large" color={'black'} />}
+      {albums.length > 0 && (
         <FlatList
           data={albums}
           keyExtractor={item => item.id}

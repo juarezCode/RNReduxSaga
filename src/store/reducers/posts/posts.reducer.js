@@ -1,9 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
   getPostByUser,
-  getPostByUserError,
   getPostByUserSuccess,
-} from '../actions/user-posts.actions';
+  getPostByUserError,
+} from '../../actions/posts/posts.actions';
 
 export const userPostsKey = 'posts';
 

@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { UsersScreenName } from '../navigations/AppNavigator';
+import {
+  CharactersScreenName,
+  UsersScreenName,
+} from '../navigations/AppNavigator';
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -8,7 +11,12 @@ const HomeScreen = ({ navigation }) => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate(UsersScreenName)}>
-        <Text style={{ color: 'white' }}>ver usuarios</Text>
+        <Text style={{ color: 'white' }}>Ver usuarios</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate(CharactersScreenName)}>
+        <Text style={{ color: 'white' }}>Ver personajes de Rick y Morty</Text>
       </TouchableOpacity>
     </View>
   );
@@ -25,6 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'teal',
     marginHorizontal: 4,
+    marginTop: 2,
   },
 });
 

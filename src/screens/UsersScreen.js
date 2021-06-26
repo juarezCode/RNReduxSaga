@@ -33,8 +33,8 @@ const UsersScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <Text style={{ ...styles.text, ...styles.title }}>Usuarios</Text>
-      {loading ? <ActivityIndicator size="large" color={'black'} /> : null}
-      {users.length == 0 ? null : (
+      {loading && <ActivityIndicator size="large" color={'black'} />}
+      {users.length > 0 && (
         <FlatList
           data={users}
           keyExtractor={user => user.id}

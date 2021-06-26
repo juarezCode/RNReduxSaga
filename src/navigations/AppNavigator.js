@@ -5,12 +5,18 @@ import HomeScreen from '../screens/HomeScreen';
 import UserDetailScreen from '../screens/UserDetailScreen';
 import UsersScreen from '../screens/UsersScreen';
 import PhotosScreen from '../screens/PhotosScreen';
+import CommentsScreen from '../screens/CommentsScreen';
+import CharactersScreen from '../screens/rick-and-morty/CharactersScreen';
+import CharacterDetailScreen from '../screens/rick-and-morty/CharacterDetailScreen';
 
 const Stack = createStackNavigator();
 const HomeScreenName = 'Home';
 export const UsersScreenName = 'User';
 export const UserDetailScreenName = 'UserDetail';
 export const PhotosScreenName = 'Photos';
+export const CommentsScreenName = 'Comments';
+export const CharactersScreenName = 'Characters';
+export const CharacterDetailScreenName = 'CharacterDetail';
 
 const AppNavigator = () => {
   return (
@@ -34,6 +40,22 @@ const AppNavigator = () => {
         <Stack.Screen
           name={PhotosScreenName}
           component={PhotosScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={CommentsScreenName}
+          component={CommentsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={CharactersScreenName}
+          component={CharactersScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name={CharacterDetailScreenName}
+          component={CharacterDetailScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
