@@ -1,4 +1,4 @@
-import { all } from 'redux-saga/effects';
+import { all, fork } from 'redux-saga/effects';
 import postsSaga from './posts';
 import rickAndMortySaga from './rick-and-morty';
 import { watchGetUserAlbums } from './user-albums.sagas';
@@ -8,11 +8,15 @@ import { watchGetUsers } from './users.sagas';
 
 export default function* rootSaga() {
   yield all([
-    watchGetUsers(),
-    watchGetUserDetail(),
-    watchGetUserAlbums(),
-    watchGetPhotos(),
-    postsSaga(),
-    rickAndMortySaga(),
+    fork(watchGetUsers),
+    fork(watchGetUserDetail),
+    fork(watchGetUserAlbums),
+    fork(watchGetPhotos),
+    fork(postsSaga),
+    fork(rickAndMortySaga),
   ]);
 }
+
+// all([
+//  watchGetUsers()
+// ])
