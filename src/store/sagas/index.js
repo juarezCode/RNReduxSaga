@@ -1,5 +1,5 @@
 import { all, fork } from 'redux-saga/effects';
-import postsSaga from './posts';
+import postsSagas from './posts';
 import rickAndMortySaga from './rick-and-morty';
 import { watchGetUserAlbums } from './user-albums.sagas';
 import { watchGetUserDetail } from './user-detail.sagas';
@@ -12,7 +12,7 @@ export default function* rootSaga() {
     fork(watchGetUserDetail),
     fork(watchGetUserAlbums),
     fork(watchGetPhotos),
-    fork(postsSaga),
+    fork(postsSagas),
     fork(rickAndMortySaga),
   ]);
 }

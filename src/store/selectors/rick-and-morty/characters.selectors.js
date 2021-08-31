@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { selectRickAndMortyState } from '.';
 import { charactersKey } from '../../reducers/rick-and-morty/characters.reducer';
 
-const charactersState = createSelector(
+export const selectCharactersState = createSelector(
   selectRickAndMortyState,
   state => state[charactersKey],
 );

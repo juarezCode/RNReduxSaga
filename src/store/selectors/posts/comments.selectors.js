@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { selectPostsState } from '.';
 import { userCommentsKey } from '../../reducers/posts/comments.reducer';
 
-const userCommentsState = createSelector(
+export const selectCommentsState = createSelector(
   selectPostsState,
   state => state[userCommentsKey],
 );

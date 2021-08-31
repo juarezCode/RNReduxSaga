@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { userKey } from '../reducers/users.reducer';
 
-const userState = state => state[userKey];
+export const selectUserState = state => state[userKey];
 
 export const selectUsers = createSelector(userState, state => state.results);
 

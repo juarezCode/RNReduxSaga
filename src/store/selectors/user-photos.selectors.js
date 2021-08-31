@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { userPhotosKey } from '../reducers/user-photos.reducer';
 
-const userPhotosState = state => state[userPhotosKey];
+export const selectPhotosState = state => state[userPhotosKey];
 
 export const selectPhotos = createSelector(
   userPhotosState,

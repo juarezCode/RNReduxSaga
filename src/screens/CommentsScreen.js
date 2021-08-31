@@ -8,20 +8,14 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCommentsByPost } from '../store/actions/posts/comments.actions';
-import {
-  selectComments,
-  selectCommentsLoading,
-  selectCommentsError,
-} from '../store/selectors/posts/comments.selectors';
+import { selectCommentsState } from '../store/selectors/posts/comments.selectors';
 import { AlertError } from '../utils/alerts';
 
 const CommentsScreen = ({ route: { params } }) => {
   const { postId } = params;
   const dispatch = useDispatch();
 
-  const comments = useSelector(selectComments);
-  const loading = useSelector(selectCommentsLoading);
-  const error = useSelector(selectCommentsError);
+  const { comments, loading, error } = useSelector(selectCommentsState);
 
   useEffect(() => {
     dispatch(getCommentsByPost(postId));

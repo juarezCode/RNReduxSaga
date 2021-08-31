@@ -10,18 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import UserCard from '../components/UserCard';
 import { UserDetailScreenName } from '../navigations/AppNavigator';
 import { getUsers } from '../store/actions/users.actions';
-import {
-  selectUsersError,
-  selectUsersLoading,
-  selectUsers,
-} from '../store/selectors/users.selectors';
+import { selectUserState } from '../store/selectors/users.selectors';
 import { AlertError } from '../utils/alerts';
 
 const UsersScreen = ({ navigation }) => {
-  const users = useSelector(selectUsers);
-  const loading = useSelector(selectUsersLoading);
-  const error = useSelector(selectUsersError);
-
+  const { users, loading, error } = useSelector(selectUserState);
   const dispatch = useDispatch();
 
   useEffect(() => {

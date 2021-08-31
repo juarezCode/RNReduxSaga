@@ -9,20 +9,14 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPhotosByAlbum } from '../store/actions/user-photos.actions';
-import {
-  selectPhotos,
-  selectPhotosLoading,
-  selectPhotosError,
-} from '../store/selectors/user-photos.selectors';
+import { selectPhotosState } from '../store/selectors/user-photos.selectors';
 import { AlertError } from '../utils/alerts';
 
 const PhotosScreen = ({ route: { params } }) => {
   const dispatch = useDispatch();
   const { id: albumId } = params;
 
-  const photos = useSelector(selectPhotos);
-  const loading = useSelector(selectPhotosLoading);
-  const error = useSelector(selectPhotosError);
+  const { photos, loading, error } = useSelector(selectPhotosState);
 
   useEffect(() => {
     dispatch(getPhotosByAlbum(albumId));

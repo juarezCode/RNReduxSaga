@@ -11,19 +11,13 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { getCharacters } from '../../store/actions/rick-and-morty/characters.actions';
 import { AlertError } from '../../utils/alerts';
-import {
-  selectCharacters,
-  selectCharactersError,
-  selectCharactersLoading,
-} from '../../store/selectors/rick-and-morty/characters.selectors';
+import { selectCharactersState } from '../../store/selectors/rick-and-morty/characters.selectors';
 import { CharacterDetailScreenName } from '../../navigations/AppNavigator';
 
 const CharactersScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const characters = useSelector(selectCharacters);
-  const loading = useSelector(selectCharactersLoading);
-  const error = useSelector(selectCharactersError);
+  const { characters, loading, error } = useSelector(selectCharactersState);
 
   useEffect(() => {
     dispatch(getCharacters());
